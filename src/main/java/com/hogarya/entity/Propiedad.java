@@ -7,7 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.List;
 
 
 
@@ -36,6 +38,9 @@ public class Propiedad {
     @JoinColumn(name = "propietario_id")
     private Persona propietario;
 
+    @OneToMany(mappedBy = "propiedad")
+    private List<Publicacion> publicaciones;
+    
     public Long getId() {
         return id;
     }

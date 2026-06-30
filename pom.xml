@@ -77,6 +77,12 @@
 			<artifactId>spring-boot-starter-webmvc-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+	 <dependency>
+	  <groupId>com.github.houbb</groupId>
+	  <artifactId>hibernate</artifactId>
+	  <version>0.1.0</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
