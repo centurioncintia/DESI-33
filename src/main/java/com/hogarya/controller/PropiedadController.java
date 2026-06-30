@@ -6,12 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.hogarya.entity.Propiedad;
 import com.hogarya.entity.Persona;
-import com.hogarya.service.PropiedadService;
+import com.hogarya.entity.Propiedad;
 import com.hogarya.service.PersonaService;
+import com.hogarya.service.PropiedadService;
 
 @Controller
 public class PropiedadController {
@@ -22,16 +23,26 @@ public class PropiedadController {
     @Autowired
     private PersonaService personaService;
 
+   /* @GetMapping("/propiedades")
+    public String listar(Model model) {
+
+        model.addAttribute("propiedades", propiedadService.listar());
+
+        return "propiedad/lista";
+    }*/
+    
     @GetMapping("/propiedades")
     public String listar(Model model) {
 
-        model.addAttribute("propiedades",
-                propiedadService.listarActivas());
+        System.out.println("Cantidad de propiedades: " + propiedadService.listar().size());
+
+        model.addAttribute("propiedades", propiedadService.listar());
 
         return "propiedad/lista";
     }
-
-    @GetMapping("/propiedades/nuevo") //CONTROLLER QUE ATIENDE PETICIONES DE LA URL
+    
+    
+    @GetMapping("/propiedades/nuevo")
     public String nuevo(Model model) {
 
         model.addAttribute("propiedad", new Propiedad());
@@ -42,13 +53,65 @@ public class PropiedadController {
 
     @PostMapping("/propiedades/guardar")
     public String guardar(@ModelAttribute Propiedad propiedad,
-                          @RequestParam Long propietarioId) {
+                          @RequestParam Long propietarioId,
+                          Model model) {
 
-        Persona p = personaService.buscarPorId(propietarioId);
-        propiedad.setPropietario(p);
+        Persona propietario = personaService.buscarPorId(propietarioId);
+        propiedad.setPropietario(propietario);
 
-        propiedadService.guardar(propiedad);
+        String resultado = propiedadService.guardarConValidaciones(propiedad);
+
+        if (!resultado.equals("OK")) {
+            model.addAttribute("error", resultado);
+            model.addAttribute("propietarios", personaService.listarActivas());
+            return "propiedad/formulario";
+        }
 
         return "redirect:/propiedades";
     }
+   /* @GetMapping("/propiedades/eliminar/{id}")
+    public String eliminar(@PathVariable Long id, Model model) {
+
+        // intentamos eliminar
+        propiedadService.eliminar(id);
+
+        // mensaje fijo de éxito (por ahora)
+        model.addAttribute("success", "Propiedad eliminada correctamente");
+
+        model.addAttribute("propiedades", propiedadService.listar());
+
+        return "propiedad/lista";
+    }*/
+    
+    @GetMapping("/propiedades/eliminar/{id}")
+    public String eliminar(@PathVariable Long id, Model model) {
+
+        String resultado = propiedadService.eliminar(id);
+
+        if (!resultado.equals("OK")) {
+            model.addAttribute("error", resultado);
+        } else {
+            model.addAttribute("success", "Propiedad eliminada correctamente");
+        }
+
+        model.addAttribute("propiedades", propiedadService.listar());
+
+        return "propiedad/lista";
+    }
+    
+    @GetMapping("/propiedades/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+
+        Propiedad propiedad = propiedadService.buscarPorId(id);
+
+        model.addAttribute("propiedad", propiedad);
+        model.addAttribute("propietarios", personaService.listarActivas());
+
+        return "propiedad/formulario";
+    }
+    
+    
+    
+    
+    
 }
