@@ -19,8 +19,16 @@
           th:object="${publicacion}"
           method="post">
 
-        <!-- Necesario para editar -->
-        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="mb-3">
+            <label class="form-label">Precio mensual</label>
+            <input type="number"
+                   step="0.01"
+                   class="form-control"
+                   th:field="*{precioMensual}"
+                   required>
+        </div>
 
         <div class="mb-3">
             <label class="form-label">Condiciones</label>
@@ -31,16 +39,14 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Precio</label>
-            <input type="number"
-                   step="0.01"
-                   class="form-control"
-                   th:field="*{precio}"
-                   required>
+            <label class="form-label">Descripción</label>
+            <textarea class="form-control"
+                      rows="4"
+                      th:field="*{descripcion}"></textarea>
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Fecha de Publicación</label>
+            <label class="form-label">Fecha de publicación</label>
             <input type="date"
                    class="form-control"
                    th:field="*{fechaPublicacion}"
@@ -48,21 +54,33 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <select class="form-select"
+                    th:field="*{estado}">
+                <option value="">Seleccione...</option>
+                <option th:each="e : ${T(com.hogarya.enums.EstadoPublicacion).values()}"
+                        th:value="${e}"
+                        th:text="${e}">
+                </option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Propiedad</label>
 
-            <select class="form-select" name="propiedadId" required>
+            <select class="form-select"
+                    name="propiedadId"
+                    required>
 
                 <option value="">Seleccione una propiedad</option>
 
-                <option
-                        th:each="propiedad : ${propiedades}"
-                        th:value="${propiedad.id}"
-                        th:text="${propiedad.direccion}"
-                        th:selected="${publicacion.propiedad != null && publicacion.propiedad.id == propiedad.id}">
+                <option th:each="p : ${propiedades}"
+                        th:value="${p.id}"
+                        th:text="${p.direccion}"
+                        th:selected="${publicacion.propiedad != null && publicacion.propiedad.id == p.id}">
                 </option>
 
             </select>
-
         </div>
 
         <button type="submit" class="btn btn-primary">

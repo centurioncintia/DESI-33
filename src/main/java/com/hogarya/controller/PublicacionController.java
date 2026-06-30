@@ -23,7 +23,7 @@ public class PublicacionController {
     @Autowired
     private PublicacionService publicacionService;
     
-    @GetMapping("/publicacion")
+    @GetMapping("/publicaciones")
     public String listar(Model model){
         
         model.addAttribute("publicacion", publicacionService.listarActivas());
@@ -31,16 +31,16 @@ public class PublicacionController {
         return "publicacion/lista";
     }
     
-    @GetMapping("/publicacion/nuevo")
+    @GetMapping("/publicaciones/nuevo")
     public String nuevo(Model model){
         
         model.addAttribute("publicacion", new Publicacion());
-        model.addAttribute("propiedades", propiedadService.listarActivas());
+        model.addAttribute("propiedades", propiedadService.listar());
         
         return "publicacion/formulario";
     }
     
-    @PostMapping("/publicacion/guardar")
+    @PostMapping("/publicaciones/guardar")
     public String guardar(@ModelAttribute Publicacion publicacion,
                           @RequestParam Long propiedadId){
         Propiedad p = propiedadService.buscarPorId(propiedadId);
@@ -48,24 +48,24 @@ public class PublicacionController {
         
         publicacionService.guardar(publicacion);
         
-        return "redirect:/publicacion";
+        return "redirect:/publicaciones";
     }
     
-    @GetMapping("/publicacion/eliminar/{id}")
+    @GetMapping("/publicaciones/eliminar/{id}")
     public String eliminar(@PathVariable Long id){
         
         publicacionService.eliminar(id);
         
-        return "redirect:/publicacion";
+        return "redirect:/publicaciones";
     }
     
-    @GetMapping("/publicacion/editar/{id}")
+    @GetMapping("/publicaciones/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
 
     Publicacion publicacion = publicacionService.buscarPorId(id);
 
     model.addAttribute("publicacion", publicacion);
-    model.addAttribute("propiedades", propiedadService.listarActivas());
+    model.addAttribute("propiedades", propiedadService.listar());
 
 
     return "publicacion/formulario";

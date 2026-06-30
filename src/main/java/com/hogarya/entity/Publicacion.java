@@ -42,11 +42,11 @@ public class Publicacion {
     private List<Visita> visitas;
     
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

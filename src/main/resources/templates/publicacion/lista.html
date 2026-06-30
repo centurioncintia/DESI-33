@@ -34,11 +34,11 @@
 
         <tbody>
 
-        <tr th:each="publicacion : ${publicaciones}">
+        <tr th:each="publicacion : ${publicacion}">
 
             <td th:text="${publicacion.id}"></td>
             <td th:text="${publicacion.condiciones}"></td>
-            <td th:text="${publicacion.precio}"></td>
+            <td th:text="${publicacion.precioMensual}"></td>
             <td th:text="${publicacion.fechaPublicacion}"></td>
             <td th:text="${publicacion.propiedad.direccion}"></td>
 

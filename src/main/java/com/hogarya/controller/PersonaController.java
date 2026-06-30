@@ -17,7 +17,7 @@ public class PersonaController {
     @Autowired
     private PersonaService personaService;
 
-    @GetMapping("/persona")
+    @GetMapping("/personas")
     public String listar(Model model) {
 
         model.addAttribute("persona",
@@ -26,7 +26,7 @@ public class PersonaController {
         return "persona/lista";
     }
 
-    @GetMapping("/persona/nuevo")
+    @GetMapping("/personas/nuevo")
     public String nuevo(Model model) {
 
         model.addAttribute("persona", new Persona());
@@ -34,11 +34,16 @@ public class PersonaController {
         return "persona/formulario";
     }
 
-    @PostMapping("/persona/guardar")
+    @PostMapping("/personas/guardar")
     public String guardar(@ModelAttribute Persona persona) {
 
         personaService.guardar(persona);
 
-        return "redirect:/persona";
+        return "redirect:/personas";
     }
+   
+   
+      
+    
+    
 }
