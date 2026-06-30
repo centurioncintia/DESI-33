@@ -22,16 +22,16 @@ public class PropiedadController {
     @Autowired
     private PersonaService personaService;
 
-    @GetMapping("/propiedades")
+    @GetMapping("/propiedad")
     public String listar(Model model) {
 
-        model.addAttribute("propiedades",
+        model.addAttribute("propiedad",
                 propiedadService.listarActivas());
 
         return "propiedad/lista";
     }
 
-    @GetMapping("/propiedades/nuevo") //CONTROLLER QUE ATIENDE PETICIONES DE LA URL
+    @GetMapping("/propiedad/nuevo") //CONTROLLER QUE ATIENDE PETICIONES DE LA URL
     public String nuevo(Model model) {
 
         model.addAttribute("propiedad", new Propiedad());
@@ -40,7 +40,7 @@ public class PropiedadController {
         return "propiedad/formulario";
     }
 
-    @PostMapping("/propiedades/guardar")
+    @PostMapping("/propiedad/guardar")
     public String guardar(@ModelAttribute Propiedad propiedad,
                           @RequestParam Long propietarioId) {
 
@@ -49,6 +49,6 @@ public class PropiedadController {
 
         propiedadService.guardar(propiedad);
 
-        return "redirect:/propiedades";
+        return "redirect:/propiedad";
     }
 }

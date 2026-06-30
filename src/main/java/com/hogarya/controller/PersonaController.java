@@ -17,16 +17,16 @@ public class PersonaController {
     @Autowired
     private PersonaService personaService;
 
-    @GetMapping("/personas")
+    @GetMapping("/persona")
     public String listar(Model model) {
 
-        model.addAttribute("personas",
+        model.addAttribute("persona",
                 personaService.listarActivas());
 
         return "persona/lista";
     }
 
-    @GetMapping("/personas/nuevo")
+    @GetMapping("/persona/nuevo")
     public String nuevo(Model model) {
 
         model.addAttribute("persona", new Persona());
@@ -34,11 +34,11 @@ public class PersonaController {
         return "persona/formulario";
     }
 
-    @PostMapping("/personas/guardar")
+    @PostMapping("/persona/guardar")
     public String guardar(@ModelAttribute Persona persona) {
 
         personaService.guardar(persona);
 
-        return "redirect:/personas";
+        return "redirect:/persona";
     }
 }

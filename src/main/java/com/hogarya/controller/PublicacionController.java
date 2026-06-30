@@ -23,15 +23,15 @@ public class PublicacionController {
     @Autowired
     private PublicacionService publicacionService;
     
-    @GetMapping("/publicaciones")
+    @GetMapping("/publicacion")
     public String listar(Model model){
         
-        model.addAttribute("publicaciones", publicacionService.listarActivas());
+        model.addAttribute("publicacion", publicacionService.listarActivas());
         
         return "publicacion/lista";
     }
     
-    @GetMapping("/publicaciones/nuevo")
+    @GetMapping("/publicacion/nuevo")
     public String nuevo(Model model){
         
         model.addAttribute("publicacion", new Publicacion());
@@ -40,7 +40,7 @@ public class PublicacionController {
         return "publicacion/formulario";
     }
     
-    @PostMapping("/publicaciones/guardar")
+    @PostMapping("/publicacion/guardar")
     public String guardar(@ModelAttribute Publicacion publicacion,
                           @RequestParam Long propiedadId){
         Propiedad p = propiedadService.buscarPorId(propiedadId);
@@ -48,18 +48,18 @@ public class PublicacionController {
         
         publicacionService.guardar(publicacion);
         
-        return "redirect:/publicaciones";
+        return "redirect:/publicacion";
     }
     
-    @GetMapping("/publicaciones/eliminar/{id}")
+    @GetMapping("/publicacion/eliminar/{id}")
     public String eliminar(@PathVariable Long id){
         
         publicacionService.eliminar(id);
         
-        return "redirect:/publicaciones";
+        return "redirect:/publicacion";
     }
     
-    @GetMapping("/publicaciones/editar/{id}")
+    @GetMapping("/publicacion/editar/{id}")
     public String editar(@PathVariable Long id, Model model) {
 
     Publicacion publicacion = publicacionService.buscarPorId(id);
