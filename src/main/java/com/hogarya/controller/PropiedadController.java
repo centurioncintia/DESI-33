@@ -26,12 +26,12 @@ public class PropiedadController {
     public String listar(Model model) {
 
 
-        model.addAttribute("propiedad",
+        model.addAttribute("propiedades",
                 propiedadService.listar());
 
         System.out.println("Cantidad de propiedades: " + propiedadService.listar().size());
 
-        model.addAttribute("propiedad", propiedadService.listar());
+        model.addAttribute("propiedades", propiedadService.listar());
 
 
         return "propiedad/lista";
@@ -39,7 +39,7 @@ public class PropiedadController {
     @GetMapping("/propiedades/nuevo")
     public String nuevo(Model model) {
 
-        model.addAttribute("propiedad", new Propiedad());
+        model.addAttribute("propiedades", new Propiedad());
         model.addAttribute("propietarios", personaService.listarActivas());
 
         return "propiedad/formulario";
@@ -76,7 +76,7 @@ public class PropiedadController {
             model.addAttribute("success", "Propiedad eliminada correctamente");
         }
 
-        model.addAttribute("propiedad", propiedadService.listar());
+        model.addAttribute("propiedades", propiedadService.listar());
 
         return "propiedad/lista";
     }
@@ -86,7 +86,7 @@ public class PropiedadController {
 
         Propiedad propiedad = propiedadService.buscarPorId(id);
 
-        model.addAttribute("propiedad", propiedad);
+        model.addAttribute("propiedades", propiedad);
         model.addAttribute("propietarios", personaService.listarActivas());
 
         return "propiedad/formulario";

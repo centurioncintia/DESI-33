@@ -20,7 +20,7 @@ public class PersonaController {
     @GetMapping("/personas")
     public String listar(Model model) {
 
-        model.addAttribute("persona",
+        model.addAttribute("personas",
                 personaService.listarActivas());
 
         return "persona/lista";
@@ -29,7 +29,7 @@ public class PersonaController {
     @GetMapping("/personas/nuevo")
     public String nuevo(Model model) {
 
-        model.addAttribute("persona", new Persona());
+        model.addAttribute("personas", new Persona());
 
         return "persona/formulario";
     }

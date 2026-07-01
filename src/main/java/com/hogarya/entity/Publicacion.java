@@ -41,6 +41,9 @@ public class Publicacion {
     @OneToMany (mappedBy = "publicacion")
     private List<Visita> visitas;
     
+    @OneToMany (mappedBy = "publicacion")
+    private List<HistorialEstadoPublicacion> historialEstadoPublicacion;
+    
 
     public Long getId() {
         return id;
