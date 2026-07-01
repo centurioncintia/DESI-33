@@ -29,7 +29,7 @@ public class PersonaController {
     @GetMapping("/personas/nuevo")
     public String nuevo(Model model) {
 
-        model.addAttribute("personas", new Persona());
+        model.addAttribute("persona", new Persona());
 
         return "persona/formulario";
     }

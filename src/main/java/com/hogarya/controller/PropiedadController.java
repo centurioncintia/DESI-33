@@ -39,7 +39,7 @@ public class PropiedadController {
     @GetMapping("/propiedades/nuevo")
     public String nuevo(Model model) {
 
-        model.addAttribute("propiedades", new Propiedad());
+        model.addAttribute("propiedad", new Propiedad());
         model.addAttribute("propietarios", personaService.listarActivas());
 
         return "propiedad/formulario";
